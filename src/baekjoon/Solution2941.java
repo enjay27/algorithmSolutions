@@ -22,7 +22,7 @@ public class Solution2941 {
 
         char[] chars = input.toCharArray();
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         int count = 0;
         for (char aChar : chars) {
             sb.append(aChar);

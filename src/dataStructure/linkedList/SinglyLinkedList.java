@@ -1,15 +1,16 @@
-package linkedList;
+package dataStructure.linkedList;
 
-public class SinglyLinkedList {
+public class SinglyLinkedList<T> {
 
-    private Node head;
+    private Node<T> head;
 
-    public void addFirst(String data) {
-        head = new Node(data, head);
+    public void addFirst(T data) {
+        head = new Node<>(data, head);
+
     }
 
-    public Node getLast() {
-        for (Node curNode = head; curNode != null ; curNode = curNode.link) {
+    public Node<T> getLast() {
+        for (Node<T> curNode = head; curNode != null ; curNode = curNode.link) {
             if (curNode.link == null) {
                 return curNode;
             }
@@ -17,17 +18,17 @@ public class SinglyLinkedList {
         return null;
     }
 
-    public void addLast(String data) {
+    public void addLast(T data) {
         if (head == null) {
             addFirst(data);
             return;
         }
-        Node lastNode = getLast();
-        lastNode.link = new Node(data, head);
+        Node<T> lastNode = getLast();
+        lastNode.link = new Node<>(data);
     }
 
-    public Node find(String data) {
-        for (Node curNode = head; curNode != null ; curNode = curNode.link) {
+    public Node<T> find(T data) {
+        for (Node<T> curNode = head; curNode != null ; curNode = curNode.link) {
             if (curNode.data.equals(data)) {
                 return curNode;
             }
@@ -35,8 +36,8 @@ public class SinglyLinkedList {
         return null;
     }
 
-    public Node getPrevious(Node target) {
-        for (Node curNode = head; curNode != null ; curNode = curNode.link) {
+    public Node<T> getPrevious(Node<T> target) {
+        for (Node<T> curNode = head; curNode != null ; curNode = curNode.link) {
             if (curNode.link == target) {
                 return curNode;
             }
@@ -44,13 +45,13 @@ public class SinglyLinkedList {
         return null;
     }
 
-    public void deleteNode(String data) {
-        Node targetNode = find(data);
+    public void deleteNode(T data) {
+        Node<T> targetNode = find(data);
         if (targetNode == null) {
             throw new IllegalStateException();
         }
 
-        Node preNode = getPrevious(targetNode);
+        Node<T> preNode = getPrevious(targetNode);
 
         if (preNode == null) {
             head = targetNode.link;
@@ -62,7 +63,7 @@ public class SinglyLinkedList {
 
     public void printList() {
         System.out.print("L = ( ");
-        for (Node curNode = head; curNode != null; curNode = curNode.link) {
+        for (Node<T> curNode = head; curNode != null; curNode = curNode.link) {
             System.out.print(curNode.data + " ");
         }
         System.out.println(")");

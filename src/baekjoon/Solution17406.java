@@ -1,9 +1,6 @@
 package baekjoon;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Solution17406 {
     static int[][] rectangle;
@@ -13,6 +10,7 @@ public class Solution17406 {
     static int right;
     static int times;
     static int min = Integer.MAX_VALUE;
+    Queue<Integer> queue = new PriorityQueue<>(Comparator.comparingInt(a -> a));
 
     static List<List<Integer>> permutation = new ArrayList<>();
 

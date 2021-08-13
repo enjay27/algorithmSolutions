@@ -3,7 +3,6 @@ package baekjoon;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Solution17135 {
     static List<Point> enemies = new ArrayList<>();
@@ -41,19 +40,20 @@ public class Solution17135 {
             }
             int score = 0;
             for (int i = 0; i < height; i++) {
-                List<Integer> killedEnemies = new ArrayList<>();
+                Set<Integer> killedEnemies = new HashSet<>();
                 for (Point archer : archers) {
                     int minDistanceEnemy = -1;
                     int prevX = Integer.MAX_VALUE;
                     int minDistance = Integer.MAX_VALUE;
                     for (int j = 0; j < enemyCopies.size(); j++) {
-                        if (enemyCopies.get(j).y >= height) {
-                            continue;
-                        }
+                        if (enemyCopies.get(j) == null) continue;
+                        if (enemyCopies.get(j).y >= height) continue;
+
                         int distance = Math.abs(enemyCopies.get(j).x - archer.x) + Math.abs(enemyCopies.get(j).y - archer.y);
+
                         if (distance > range) continue;
-                        if (minDistance < distance)
-                            continue;
+                        if (minDistance < distance) continue;
+
                         if (minDistance > distance) {
                             minDistance = distance;
                             prevX = enemyCopies.get(j).x;
@@ -67,14 +67,15 @@ public class Solution17135 {
                     if (minDistanceEnemy != -1)
                         killedEnemies.add(minDistanceEnemy);
                 }
-                killedEnemies.sort(Comparator.comparingInt(a -> a));
-                killedEnemies = killedEnemies.stream().distinct().collect(Collectors.toList());
-                for (int j = killedEnemies.size() - 1; j >= 0; j--) {
-                    enemyCopies.remove((int) killedEnemies.get(j));
+
+                for (Integer killedEnemy : killedEnemies) {
+                    enemyCopies.set(killedEnemy, null);
                     score++;
                 }
+
                 for (Point enemyCopy : enemyCopies) {
-                    enemyCopy.y++;
+                    if (enemyCopy != null)
+                        enemyCopy.y++;
                 }
             }
             maxScore = Math.max(score, maxScore);

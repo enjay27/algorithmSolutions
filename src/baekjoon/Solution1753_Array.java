@@ -1,15 +1,19 @@
 package baekjoon;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Solution1753_Array {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Scanner sc = new Scanner(System.in);
         int vertexCount = sc.nextInt();
         int edgeCount = sc.nextInt();
         int start = sc.nextInt();
 
         int[] distance = new int[vertexCount + 1];
+        Arrays.fill(distance, Integer.MAX_VALUE);
+        boolean[] visited = new boolean[vertexCount + 1];
 
         Map<Integer, Map<Integer, Queue<Integer>>> graph = new HashMap<>();
         for (int i = 0; i < edgeCount; i++) {
@@ -23,6 +27,7 @@ public class Solution1753_Array {
 
         Queue<Integer> queue = new LinkedList<>();
         queue.offer(start);
+        distance[start] = 0;
 
         while (!queue.isEmpty()) {
             Integer from = queue.poll();
